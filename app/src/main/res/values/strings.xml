@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">JesapadaVideoApp</string>
+    <string name="detener">Detener</string>
+    <string name="grabar">Grabar</string>
+    <string name="start_capture">Hola</string>
+    <string name="take_photo">Tomar foto\n</string>
 </resources>
