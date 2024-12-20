@@ -4,4 +4,6 @@
     <string name="grabar">Grabar</string>
     <string name="start_capture">Hola</string>
     <string name="take_photo">Tomar foto\n</string>
+    <string name="autores">Jesus - Pablo - David</string>
+    <string name="video_app">Video APP</string>
 </resources>

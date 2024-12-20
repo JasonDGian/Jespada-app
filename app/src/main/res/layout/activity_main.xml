@@ -8,13 +8,13 @@
     tools:context=".MainActivity">
 
 
-
     <ImageView
-        android:background="@drawable/composicion_fondo_v5"
         android:id="@+id/imagenFondoPrincipal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:background="@drawable/composicion_fondo_v5"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="33dp" />
 
     <ImageView
         android:id="@+id/logo_dimnamico_3"
@@ -66,9 +66,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/video_app"
+        android:textSize="24sp"
+        android:textStyle="italic|bold"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_dimnamico_3" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/autores"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
+    <TextView
+        android:textAlignment="center"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:text="Aplicación desarrollada por los alumnos de segundo de Desarrollo Aplicaciones Multiplataforma del curso de 2024/2025 de IES Jándula."
+        android:textColor="@color/white75"
+        app:layout_constraintBottom_toBottomOf="@+id/imagenFondoPrincipal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
+    <Button
+        android:id="@+id/boton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
