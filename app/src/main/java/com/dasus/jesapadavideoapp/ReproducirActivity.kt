@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.activity.enableEdgeToEdge
@@ -46,6 +47,8 @@ class ReproducirActivity : AppCompatActivity() {
         val cardReproducir = findViewById<CardView>(R.id.cardReproducir)
         val cardPausa = findViewById<CardView>(R.id.cardPausar)
         val tvNoVideo = findViewById<TextView>(R.id.videoNoEncontrado)
+        val ivReproducir= findViewById<ImageView>(R.id.ivStart)
+        val ivPausa= findViewById<ImageView>(R.id.ivPause)
 
         val videoUri = obtenerUriVideoGuardado()
         // vemos si el video existe
@@ -56,15 +59,18 @@ class ReproducirActivity : AppCompatActivity() {
             tvNoVideo.visibility = TextView.GONE
             cardReproducir.isEnabled = true
             cardPausa.isEnabled = false
-            cardPausa.setCardBackgroundColor(getColor(R.color.gray))
+            cardPausa.setCardBackgroundColor(getColor(R.color.azuldisabled))
+            ivPausa.setImageResource(R.mipmap.boton_pausar_disabled)
         } else {
             // como no hay video mostramos el mensaje y ocultamos el VideoView
             video.visibility = VideoView.GONE
             tvNoVideo.visibility = TextView.VISIBLE
             cardReproducir.isEnabled = false
             cardPausa.isEnabled = false
-            cardReproducir.setCardBackgroundColor(getColor(R.color.gray))
-            cardPausa.setCardBackgroundColor(getColor(R.color.gray))
+            cardReproducir.setCardBackgroundColor(getColor(R.color.azuldisabled))
+            cardPausa.setCardBackgroundColor(getColor(R.color.azuldisabled))
+            ivPausa.setImageResource(R.mipmap.boton_pausar_disabled)
+            ivReproducir.setImageResource(R.mipmap.boton_reproducir_disabled)
         }
 
         // Configurar botones
@@ -73,8 +79,10 @@ class ReproducirActivity : AppCompatActivity() {
                 video.start()
                 cardReproducir.isEnabled = false
                 cardPausa.isEnabled = true
-                cardReproducir.setCardBackgroundColor(getColor(R.color.gray))
+                cardReproducir.setCardBackgroundColor(getColor(R.color.azuldisabled))
                 cardPausa.setCardBackgroundColor(getColor(R.color.azulclaromenu))
+                ivPausa.setImageResource(R.mipmap.boton_pause)
+                ivReproducir.setImageResource(R.mipmap.boton_reproducir_disabled)
             }
         }
 
@@ -84,7 +92,9 @@ class ReproducirActivity : AppCompatActivity() {
                 cardReproducir.isEnabled = true
                 cardPausa.isEnabled = false
                 cardReproducir.setCardBackgroundColor(getColor(R.color.azulclaromenu))
-                cardPausa.setCardBackgroundColor(getColor(R.color.gray))
+                cardPausa.setCardBackgroundColor(getColor(R.color.azuldisabled))
+                ivPausa.setImageResource(R.mipmap.boton_pausar_disabled)
+                ivReproducir.setImageResource(R.mipmap.boton_play)
             }
         }
     }
