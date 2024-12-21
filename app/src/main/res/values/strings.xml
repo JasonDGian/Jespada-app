@@ -6,4 +6,7 @@
     <string name="take_photo">Tomar foto\n</string>
     <string name="autores">Jesus - Pablo - David</string>
     <string name="video_app">Video APP</string>
+    <string name="pausa">pausa el video</string>
+    <string name="reproducir">reproduce el video</string>
+    <string name="Not_Found">No hay videos disponibles</string>
 </resources>
