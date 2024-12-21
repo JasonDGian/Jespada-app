@@ -32,13 +32,14 @@ class GrabarActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityGrabarBinding
     private var videoCapture: VideoCapture<Recorder>? = null
     private var recording: Recording? = null
-
     private lateinit var cameraExecutor: ExecutorService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityGrabarBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        indicarBotonDetenerDisabled()
 
         // Pedir permisos de cámara
         if (todosLosPermisosConcedidos()) {
@@ -50,16 +51,31 @@ class GrabarActivity : AppCompatActivity() {
 
         viewBinding.cardGrabar.setOnClickListener {
             comprobarSiVideoExisteYEliminarlo()
-            Toast.makeText(baseContext, "Grabando...", Toast.LENGTH_SHORT)
-                .show()
+            Toast.makeText(baseContext, "Grabando...", Toast.LENGTH_SHORT).show()
             capturarVideo()
+            indicarBotonGrabarDisabled()
         }
 
         viewBinding.cardDetener.setOnClickListener {
             capturarVideo()
+            indicarBotonDetenerDisabled()
         }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
+    }
+
+    private fun indicarBotonDetenerDisabled() {
+        viewBinding.cardDetener.setCardBackgroundColor(resources.getColor(R.color.azuldisabled))
+        viewBinding.ivDetener.setImageResource(R.mipmap.boton_detener_disabled)
+        viewBinding.cardGrabar.setCardBackgroundColor(resources.getColor(R.color.azulclaromenu))
+        viewBinding.ivGrabar.setImageResource(R.mipmap.boton_grabar)
+    }
+
+    private fun indicarBotonGrabarDisabled() {
+        viewBinding.cardGrabar.setCardBackgroundColor(resources.getColor(R.color.azuldisabled))
+        viewBinding.ivGrabar.setImageResource(R.mipmap.boton_grabar_disabled)
+        viewBinding.cardDetener.setCardBackgroundColor(resources.getColor(R.color.azulclaromenu))
+        viewBinding.ivDetener.setImageResource(R.mipmap.boton_detener)
     }
 
     private fun comprobarSiVideoExisteYEliminarlo() {
@@ -137,6 +153,7 @@ class GrabarActivity : AppCompatActivity() {
                     is VideoRecordEvent.Start -> {
                         viewBinding.apply {
                             cardDetener.isEnabled = true
+
                         }
                     }
                     is VideoRecordEvent.Finalize -> {
