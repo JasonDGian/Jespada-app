@@ -2,6 +2,7 @@ package com.dasus.jesapadavideoapp
 
 import android.Manifest
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -20,11 +21,14 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.core.Preview
 import androidx.camera.core.CameraSelector
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.camera.video.MediaStoreOutputOptions
 import androidx.camera.video.Quality
 import androidx.camera.video.QualitySelector
 import androidx.camera.video.VideoRecordEvent
 import androidx.core.content.PermissionChecker
+import androidx.core.content.res.ResourcesCompat
 import com.dasus.jesapadavideoapp.databinding.ActivityGrabarBinding
 import java.io.File
 
@@ -38,6 +42,13 @@ class GrabarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityGrabarBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_grabar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
+        toolbar.setOverflowIcon(ResourcesCompat.getDrawable(resources, R.drawable.menu_icon, null))
 
         indicarBotonDetenerDisabled()
 
@@ -255,6 +266,26 @@ class GrabarActivity : AppCompatActivity() {
                 // Permiso denegado
                 Toast.makeText(this, "Permiso denegado", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Infla el menú; agrega elementos al Toolbar
+        menuInflater.inflate(R.menu.opciones_menu_grabar, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.opcion_volver -> {
+            startActivity(Intent(this, MainActivity::class.java))
+            true
+        }
+        R.id.opcion_reproducir -> {
+            startActivity(Intent(this, GrabarActivity::class.java))
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
         }
     }
 }

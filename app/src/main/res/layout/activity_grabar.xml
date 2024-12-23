@@ -2,13 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/grabarMain"
+    android:id="@+id/grabar_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GrabarActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_grabar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:background="@color/azuloscuromenu"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+        <ImageView
+            android:id="@+id/toolbar_logo"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/menu_logo"
+            />
+    </androidx.appcompat.widget.Toolbar>
+
     <androidx.camera.view.PreviewView
-        android:id="@+id/pvCamara"
+        android:id="@+id/pv_camara"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewAcciones"
+        android:id="@+id/card_view_acciones"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/azuloscuromenu"
@@ -28,13 +51,13 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clCardViewAcciones"
+            android:id="@+id/cl_card_view_acciones"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="10dp">
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardGrabar"
+                android:id="@+id/card_grabar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardElevation="5dp"
@@ -43,11 +66,11 @@
                 app:strokeWidth="2dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/cardDetener"
+                app:layout_constraintEnd_toStartOf="@+id/card_detener"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clCardViewGrabar"
+                    android:id="@+id/cl_card_view_grabar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
@@ -56,7 +79,7 @@
                     android:paddingEnd="65dp">
 
                     <ImageView
-                        android:id="@+id/ivGrabar"
+                        android:id="@+id/iv_grabar"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/grabar"
@@ -69,7 +92,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardDetener"
+                android:id="@+id/card_detener"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardElevation="5dp"
@@ -78,11 +101,11 @@
                 app:strokeWidth="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cardGrabar"
+                app:layout_constraintStart_toEndOf="@+id/card_grabar"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/clCardViewDetener"
+                    android:id="@+id/cl_card_view_detener"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingTop="10dp"
@@ -91,7 +114,7 @@
                     android:paddingEnd="65dp">
 
                     <ImageView
-                        android:id="@+id/ivDetener"
+                        android:id="@+id/iv_detener"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:contentDescription="@string/detener"

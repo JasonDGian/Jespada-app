@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/opcion_grabar"
+        android:title="Grabar"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/opcion_reproducir"
+        android:title="Reproducir"
+        app:showAsAction="never"/>
+</menu>

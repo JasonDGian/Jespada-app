@@ -7,17 +7,30 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_main"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:background="@color/azuloscuromenu"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <ImageView
-        android:id="@+id/imagenFondoPrincipal"
+        android:id="@+id/imagen_fondo_principal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/composicion_fondo_v5"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="33dp" />
+        app:layout_constraintEnd_toEndOf="@+id/toolbar_main"
+        tools:layout_editor_absoluteY="179dp" />
 
     <ImageView
-        android:id="@+id/logo_dimnamico_3"
+        android:id="@+id/logo_dinamico_3"
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:background="@drawable/logo_dinamico_3"
@@ -27,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/logo_dimnamico_2"
+        android:id="@+id/logo_dinamico_2"
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:background="@drawable/logo_dinamico_2"
@@ -37,7 +50,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/logo_dimnamico_21"
+        android:id="@+id/logo_dinamico_2_1"
         android:layout_width="270dp"
         android:layout_height="50dp"
         android:background="@drawable/logo_dinamico_2"
@@ -75,7 +88,7 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo_dimnamico_3" />
+        app:layout_constraintTop_toBottomOf="@+id/logo_dinamico_3" />
 
     <TextView
         android:id="@+id/textView"
@@ -100,7 +113,7 @@
         android:paddingEnd="15dp"
         android:text="Aplicación desarrollada por los alumnos de segundo de Desarrollo Aplicaciones Multiplataforma del curso de 2024/2025 de IES Jándula."
         android:textColor="@color/white75"
-        app:layout_constraintBottom_toBottomOf="@+id/imagenFondoPrincipal"
+        app:layout_constraintBottom_toBottomOf="@+id/imagen_fondo_principal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
