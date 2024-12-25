@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/toolbar_global"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/azuloscuromenu"
+    android:padding="5dp"
+    android:elevation="4dp">
+
+    <!-- Logo en el lado izquierdo -->
+    <ImageView
+        android:id="@+id/toolbar_logo"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:src="@drawable/menu_logo"
+        android:layout_gravity="start|center_vertical" />
+
+</androidx.appcompat.widget.Toolbar>
