@@ -46,9 +46,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Inicializa los componentes visuales.
-        imagen_logo_3 = findViewById(R.id.logo_dimnamico_3)
-        imagen_logo_2 = findViewById(R.id.logo_dimnamico_2)
-        imagen_logo_21 = findViewById(R.id.logo_dimnamico_21)
+        imagen_logo_3 = findViewById(R.id.logo_dinamico_3)
+        imagen_logo_2 = findViewById(R.id.logo_dinamico_2)
+        imagen_logo_21 = findViewById(R.id.logo_dinamico_2_1)
         imagen_logo_22 = findViewById(R.id.logo_dimnamico_22)
         imagen_logo_1 = findViewById(R.id.logo_dimnamico_1)
 
