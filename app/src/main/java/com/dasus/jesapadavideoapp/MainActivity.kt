@@ -1,6 +1,7 @@
 package com.dasus.jesapadavideoapp
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.media.Image
 import android.media.MediaPlayer
@@ -17,12 +18,18 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.app.ActivityCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
+import com.dasus.jesapadavideoapp.GrabarActivity.Companion.CODIGO_PERMISOS
+import com.dasus.jesapadavideoapp.GrabarActivity.Companion.PERMISOS_REQUERIDOS
 
 class MainActivity : AppCompatActivity() {
+
+    // Propiedad que indica si los permisos fueron concedidos
+    private var permisosConcedidos: Boolean = false
 
     // Componentes visuales para las diferentes partes del logo.
     private lateinit var imagen_logo_3: ImageView
@@ -87,8 +94,6 @@ class MainActivity : AppCompatActivity() {
 
         // Configura el reproductor de audio para los efectos de sonido de la espada.
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_espada2)
-
-
 
         // Inicia la animación de carga inicial para los elementos del logo.
         animacionEspera()
@@ -217,32 +222,77 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    // Maneja la respuesta de la solicitud de permisos
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == CODIGO_PERMISOS)
+        {
+            permisosConcedidos = grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
     // Funcion que según el elemento seleccionado en el menú llevará a una pantalla
     // o a otra.
-    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.opcion_grabar -> {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.opcion_grabar -> {
+                verificarYPedirPermisos()
 
-            // Inicia la animación para mover todos los elementos del logo hacia arriba.
-            imagen_logo_1.startAnimation(animArriba)
-            imagen_logo_2.startAnimation(animArriba)
-            imagen_logo_3.startAnimation(animArriba)
-            imagen_logo_21.startAnimation(animArriba)
-            imagen_logo_22.startAnimation(animArriba)
+                // Verifica si los permisos necesarios han sido concedidos
+                if (!permisosConcedidos)
+                {
+                    // Muestra un mensaje al usuario indicando que se necesitan los permisos
+                    Toast.makeText(this, "Por favor, concede los permisos necesarios para continuar.", Toast.LENGTH_SHORT).show()
+                    return true
+                }
 
-            // True para indicar que la opción ha sido "manejada"
-            true
+
+                // Inicia la animación para mover todos los elementos del logo hacia arriba.
+                imagen_logo_1.startAnimation(animArriba)
+                imagen_logo_2.startAnimation(animArriba)
+                imagen_logo_3.startAnimation(animArriba)
+                imagen_logo_21.startAnimation(animArriba)
+                imagen_logo_22.startAnimation(animArriba)
+
+                // Si los permisos están concedidos, puedes navegar a la siguiente actividad.
+                // Puedes llamar aquí a la intención para cambiar de actividad, si los permisos están concedidos.
+                // Intent intent = new Intent(this, OtraActivity.class);
+                // startActivity(intent);
+
+                // True para indicar que la opción ha sido "manejada"
+                return true
+            }
+            R.id.opcion_reproducir -> {
+                // Lanza la pantalla de grabar.
+                imagen_logo_1.startAnimation(animArriba2)
+                imagen_logo_2.startAnimation(animArriba2)
+                imagen_logo_3.startAnimation(animArriba2)
+                imagen_logo_21.startAnimation(animArriba2)
+                imagen_logo_22.startAnimation(animArriba2)
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
-        R.id.opcion_reproducir -> {
-            // Lanza la pantalla de grabar.
-            imagen_logo_1.startAnimation(animArriba2)
-            imagen_logo_2.startAnimation(animArriba2)
-            imagen_logo_3.startAnimation(animArriba2)
-            imagen_logo_21.startAnimation(animArriba2)
-            imagen_logo_22.startAnimation(animArriba2)
-            true
+    }
+
+    // Pide y verifica permisos de camara y audio
+    private fun verificarYPedirPermisos() {
+        // Comprueba si los permisos ya están concedidos
+        val permisosNoConcedidos = PERMISOS_REQUERIDOS.filter { permiso ->
+            ActivityCompat.checkSelfPermission(this, permiso) != PackageManager.PERMISSION_GRANTED
         }
-        else -> {
-            super.onOptionsItemSelected(item)
+
+        // Si hay permisos no concedidos, solicita al usuario
+        if (permisosNoConcedidos.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permisosNoConcedidos.toTypedArray(), CODIGO_PERMISOS)
+        }
+        else
+        {
+            // Si todos los permisos están concedidos, actualiza la bandera
+            permisosConcedidos = true
         }
     }
 
