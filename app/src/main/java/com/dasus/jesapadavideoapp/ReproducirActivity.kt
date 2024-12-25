@@ -108,6 +108,14 @@ class ReproducirActivity : AppCompatActivity() {
                 ivReproducir.setImageResource(R.mipmap.boton_play)
             }
         }
+        video.setOnCompletionListener {
+            cardReproducir.isEnabled = true
+            cardPausa.isEnabled = false
+            cardReproducir.setCardBackgroundColor(getColor(R.color.azulclaromenu))
+            cardPausa.setCardBackgroundColor(getColor(R.color.azuldisabled))
+            ivPausa.setImageResource(R.mipmap.boton_pausar_disabled)
+            ivReproducir.setImageResource(R.mipmap.boton_play)
+        }
 
     }
 

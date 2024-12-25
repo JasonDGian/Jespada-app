@@ -12,12 +12,6 @@
         layout="@layout/toolbar"/>
 
     <TextView
-        android:id="@+id/menuTemporal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <TextView
         android:id="@+id/videoNoEncontrado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,12 +23,11 @@
         app:layout_constraintTop_toTopOf="parent" />
     <VideoView
         android:id="@+id/video"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="@id/cardViewAcciones"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/menuTemporal" />
+        app:layout_constraintStart_toStartOf="parent"/>
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewAcciones"
         android:layout_width="0dp"
