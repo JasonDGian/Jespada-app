@@ -5,7 +5,7 @@
         android:title="Volver"
         app:showAsAction="never"/>
     <item
-        android:id="@+id/opcion_reproducir"
-        android:title="Reproducir"
+        android:id="@+id/opcion_grabar"
+        android:title="Grabar"
         app:showAsAction="never"/>
 </menu>

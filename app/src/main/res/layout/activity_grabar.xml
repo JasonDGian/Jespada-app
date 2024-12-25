@@ -7,28 +7,9 @@
     android:layout_height="match_parent"
     tools:context=".GrabarActivity">
 
-    <androidx.appcompat.widget.Toolbar
+    <include
         android:id="@+id/toolbar_grabar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:background="@color/azuloscuromenu"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        >
-        <ImageView
-            android:id="@+id/toolbar_logo"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/menu_logo"
-            />
-    </androidx.appcompat.widget.Toolbar>
+        layout="@layout/toolbar"/>
 
     <androidx.camera.view.PreviewView
         android:id="@+id/pv_camara"

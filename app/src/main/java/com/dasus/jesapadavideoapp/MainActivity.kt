@@ -1,13 +1,23 @@
 package com.dasus.jesapadavideoapp
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
+import android.media.Image
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.view.animation.Animation
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
+import android.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -29,6 +39,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var animEspadaLenta: Animation
     private lateinit var animEspadaLenta2: Animation
     private lateinit var animArriba: Animation
+    private lateinit var animArriba2: Animation
+
 
     // Reproductor multimedia para los efectos de sonido.
     private lateinit var mediaPlayer: MediaPlayer
@@ -45,12 +57,22 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        // Configurar la Toolbar
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_main)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        val iconoToolbar = AppCompatResources.getDrawable(this, R.drawable.menu_icon)
+        toolbar.overflowIcon = iconoToolbar
+
         // Inicializa los componentes visuales.
         imagen_logo_3 = findViewById(R.id.logo_dinamico_3)
         imagen_logo_2 = findViewById(R.id.logo_dinamico_2)
         imagen_logo_21 = findViewById(R.id.logo_dinamico_2_1)
-        imagen_logo_22 = findViewById(R.id.logo_dimnamico_22)
-        imagen_logo_1 = findViewById(R.id.logo_dimnamico_1)
+        imagen_logo_22 = findViewById(R.id.logo_dinamico_2_2)
+        imagen_logo_1 = findViewById(R.id.logo_dinamico_1)
+
+        var logoMenu = findViewById<ImageView>(R.id.toolbar_logo)
+        logoMenu.isVisible = false
 
         // Carga las animaciones desde los recursos.
         animEspera = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.anim_espera)
@@ -60,23 +82,16 @@ class MainActivity : AppCompatActivity() {
         animEspadaLenta = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.anim_espada_lenta)
         animEspadaLenta2 = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.anim_espada_lenta2)
         animArriba = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.enviar_arriba)
+        animArriba2 = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.enviar_arriba)
+        var espadaAparecer = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.logo_espada_aparecer)
 
         // Configura el reproductor de audio para los efectos de sonido de la espada.
         mediaPlayer = MediaPlayer.create(this, R.raw.sonido_espada2)
 
+
+
         // Inicia la animación de carga inicial para los elementos del logo.
         animacionEspera()
-
-        // TODO: Cambiar este botón de prueba a uno en la barra de herramientas.
-        val botonTest = findViewById<Button>(R.id.boton)
-        botonTest.setOnClickListener {
-            // Inicia la animación para mover todos los elementos del logo hacia arriba.
-            imagen_logo_1.startAnimation(animArriba)
-            imagen_logo_2.startAnimation(animArriba)
-            imagen_logo_3.startAnimation(animArriba)
-            imagen_logo_21.startAnimation(animArriba)
-            imagen_logo_22.startAnimation(animArriba)
-        }
 
         // Configura el intent para abrir la actividad de grabación.
         val intentoActividadGrabar = Intent(this, GrabarActivity::class.java)
@@ -94,8 +109,39 @@ class MainActivity : AppCompatActivity() {
                 imagen_logo_3.isVisible = false
                 imagen_logo_21.isVisible = false
                 imagen_logo_22.isVisible = false
+                logoMenu.startAnimation(espadaAparecer)
+                logoMenu.isVisible = true
+
                 // Navega a la actividad de grabación.
                 startActivity(intentoActividadGrabar)
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+                // Esta animación no se repite.
+            }
+        })
+
+        // Configura el intent para abrir la actividad de grabación.
+        val intentoActividadReproducir = Intent(this, ReproducirActivity::class.java)
+
+        // Configura la acción al finalizar la animación "animArriba".
+        animArriba2.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+                // Sin acción al inicio de esta animación.
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                // Oculta los elementos del logo al finalizar la animación.
+                imagen_logo_1.isVisible = false
+                imagen_logo_2.isVisible = false
+                imagen_logo_3.isVisible = false
+                imagen_logo_21.isVisible = false
+                imagen_logo_22.isVisible = false
+                logoMenu.startAnimation(espadaAparecer)
+                logoMenu.isVisible = true
+
+                // Navega a la actividad de grabación.
+                startActivity(intentoActividadReproducir)
             }
 
             override fun onAnimationRepeat(animation: Animation?) {
@@ -160,4 +206,45 @@ class MainActivity : AppCompatActivity() {
         imagen_logo_21.startAnimation(animEspera2)
         imagen_logo_22.startAnimation(animEspera2)
     }
+
+
+    // Funcion que "infla" el boton del menu con las opciones pasadas por parametro.
+    // En este caso infla con las funciones especificas de la pantalla principal para acceder
+    // a las pantallas de grabar o reproducir.
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Infla el menú; agrega elementos al Toolbar
+        menuInflater.inflate(R.menu.opciones_menu, menu)
+        return true
+    }
+
+    // Funcion que según el elemento seleccionado en el menú llevará a una pantalla
+    // o a otra.
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.opcion_grabar -> {
+
+            // Inicia la animación para mover todos los elementos del logo hacia arriba.
+            imagen_logo_1.startAnimation(animArriba)
+            imagen_logo_2.startAnimation(animArriba)
+            imagen_logo_3.startAnimation(animArriba)
+            imagen_logo_21.startAnimation(animArriba)
+            imagen_logo_22.startAnimation(animArriba)
+
+            // True para indicar que la opción ha sido "manejada"
+            true
+        }
+        R.id.opcion_reproducir -> {
+            // Lanza la pantalla de grabar.
+            imagen_logo_1.startAnimation(animArriba2)
+            imagen_logo_2.startAnimation(animArriba2)
+            imagen_logo_3.startAnimation(animArriba2)
+            imagen_logo_21.startAnimation(animArriba2)
+            imagen_logo_22.startAnimation(animArriba2)
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }

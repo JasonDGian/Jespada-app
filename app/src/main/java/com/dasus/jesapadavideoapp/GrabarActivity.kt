@@ -23,6 +23,7 @@ import androidx.camera.core.CameraSelector
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.camera.video.MediaStoreOutputOptions
 import androidx.camera.video.Quality
 import androidx.camera.video.QualitySelector
@@ -43,12 +44,19 @@ class GrabarActivity : AppCompatActivity() {
         viewBinding = ActivityGrabarBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+//        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_grabar)
+//        setSupportActionBar(toolbar)
+//
+//        supportActionBar?.setDisplayShowTitleEnabled(false)
+//
+//        toolbar.setOverflowIcon(ResourcesCompat.getDrawable(resources, R.drawable.menu_icon, null))
+        // Configurar la Toolbar
         val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_grabar)
         setSupportActionBar(toolbar)
-
         supportActionBar?.setDisplayShowTitleEnabled(false)
+        val iconoToolbar = AppCompatResources.getDrawable(this, R.drawable.menu_icon)
+        toolbar.overflowIcon = iconoToolbar
 
-        toolbar.setOverflowIcon(ResourcesCompat.getDrawable(resources, R.drawable.menu_icon, null))
 
         indicarBotonDetenerDisabled()
 
@@ -281,7 +289,7 @@ class GrabarActivity : AppCompatActivity() {
             true
         }
         R.id.opcion_reproducir -> {
-            startActivity(Intent(this, GrabarActivity::class.java))
+            startActivity(Intent(this, ReproducirActivity::class.java))
             true
         }
         else -> {

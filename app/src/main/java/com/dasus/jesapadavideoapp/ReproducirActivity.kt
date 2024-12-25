@@ -1,14 +1,18 @@
 package com.dasus.jesapadavideoapp
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.VideoView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.cardview.widget.CardView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -24,6 +28,13 @@ class ReproducirActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // Configurar la Toolbar
+        val toolbar = findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar_reproducir)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+        val iconoToolbar = AppCompatResources.getDrawable(this, R.drawable.menu_icon)
+        toolbar.overflowIcon = iconoToolbar
 
         fun obtenerUriVideoGuardado(): Uri? {
             // Define la ruta del directorio donde el video esta almacenado
@@ -97,5 +108,38 @@ class ReproducirActivity : AppCompatActivity() {
                 ivReproducir.setImageResource(R.mipmap.boton_play)
             }
         }
+
     }
+
+    // Funcion que "infla" el boton del menu con las opciones pasadas por parametro.
+    // En este caso infla con las funciones especificas de la pantalla principal para acceder
+    // a las pantallas de grabar o reproducir.
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Infla el menú; agrega elementos al Toolbar
+        menuInflater.inflate(R.menu.opciones_menu_reproducir, menu)
+        return true
+    }
+
+
+    // Funcion que según el elemento seleccionado en el menú llevará a una pantalla
+    // o a otra.
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.opcion_grabar -> {
+
+            // Lanza la pantalla de grabar.
+            startActivity(Intent(this, GrabarActivity::class.java))
+
+            // True para indicar que la opción ha sido "manejada"
+            true
+        }
+        R.id.opcion_volver -> {
+            // Lanza la pantalla de grabar.
+            startActivity(Intent(this, MainActivity::class.java))
+            true
+        }
+        else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
+
 }
