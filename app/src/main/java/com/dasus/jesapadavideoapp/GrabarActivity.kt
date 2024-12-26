@@ -36,6 +36,22 @@ import java.io.File
 class GrabarActivity : AppCompatActivity()
 {
 
+    companion object
+    {
+        private const val TAG = "Jespada"
+        private const val NOMBRE_ARCHIVO = "Video"
+        const val CODIGO_PERMISOS = 10
+        val PERMISOS_REQUERIDOS = mutableListOf(
+            Manifest.permission.CAMERA,
+            Manifest.permission.RECORD_AUDIO
+        ).apply {
+            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P)
+            {
+                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            }
+        }.toTypedArray()
+    }
+
     // Declaración de variables necesarias para la grabación y la cámara.
     private lateinit var viewBinding: ActivityGrabarBinding
     private var videoCapture: VideoCapture<Recorder>? = null
@@ -206,26 +222,11 @@ class GrabarActivity : AppCompatActivity()
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
+    // Destruye la ejecucion de la camara
     override fun onDestroy()
     {
         super.onDestroy()
         cameraExecutor.shutdown()
-    }
-
-    companion object
-    {
-        private const val TAG = "Jespada"
-        private const val NOMBRE_ARCHIVO = "Video"
-        const val CODIGO_PERMISOS = 10
-        val PERMISOS_REQUERIDOS = mutableListOf(
-            Manifest.permission.CAMERA,
-            Manifest.permission.RECORD_AUDIO
-        ).apply {
-            if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P)
-            {
-                add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            }
-        }.toTypedArray()
     }
 
     // Configura el menú de opciones
